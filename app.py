@@ -20,13 +20,13 @@ AppId = os.getenv("WECHAT_APP_ID", "")
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/wxunclejun/index")
 def index():
     host = request.url_root
     return render_template("index.html", host=host)
 
 
-@app.route("/api/wechat", methods=["GET", "POST"])
+@app.route("/wxunclejun/api/wechat", methods=["GET", "POST"])
 def wechat():
     signature = request.args.get("signature", "")
     timestamp = request.args.get("timestamp", "")
