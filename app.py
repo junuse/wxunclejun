@@ -8,6 +8,10 @@ from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
 from wechatpy.exceptions import InvalidAppIdException
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # set token or get from environments
 TOKEN = os.getenv("WECHAT_TOKEN", "123456")
 EncodingAESKey = os.getenv("WECHAT_ENCODING_AES_KEY", "")
@@ -16,13 +20,13 @@ AppId = os.getenv("WECHAT_APP_ID", "")
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/wxunclejun/")
 def index():
     host = request.url_root
     return render_template("index.html", host=host)
 
 
-@app.route("/wechat", methods=["GET", "POST"])
+@app.route("/wxunclejun/api/wechat", methods=["GET", "POST"])
 def wechat():
     signature = request.args.get("signature", "")
     timestamp = request.args.get("timestamp", "")
@@ -61,4 +65,5 @@ def wechat():
 
 
 if __name__ == "__main__":
-    app.run("127.0.0.1", 5001, debug=True)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=80)
