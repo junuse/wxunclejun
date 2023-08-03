@@ -20,13 +20,13 @@ AppId = os.getenv("WECHAT_APP_ID", "")
 app = Flask(__name__)
 
 
-@app.route("/wxunclejun/")
+@app.route("/")
 def index():
     host = request.url_root
     return render_template("index.html", host=host)
 
 
-@app.route("/wxunclejun/api/wechat", methods=["GET", "POST"])
+@app.route("/api/wechat", methods=["GET", "POST"])
 def wechat():
     signature = request.args.get("signature", "")
     timestamp = request.args.get("timestamp", "")
@@ -66,4 +66,4 @@ def wechat():
 
 if __name__ == "__main__":
     from waitress import serve
-    serve(app, host="0.0.0.0", port=80)
+    serve(app, host="127.0.0.1", port=5000)
